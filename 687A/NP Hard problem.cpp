@@ -57,7 +57,7 @@ ll color[N+5];
 bool vis[N+5];
 vl red,green;
 bool B=1;
-void dfs(ll current,ll prev) {
+void as_dfs(ll current,ll prev) {
     if(color[current]==color[prev]&&color[current]){
         B=0;
         return;
@@ -80,7 +80,7 @@ void dfs(ll current,ll prev) {
         vis[current]=1;
     }
     for (auto u: adj[current]) {
-        dfs(u,current);
+        as_dfs(u,current);
     }
 
 }
@@ -98,7 +98,7 @@ void solve() {
         adj[b].pb(a);
     }
     for(ll i=1;i<=n;i++){
-        if(!vis[i])dfs(i,i);
+        if(!vis[i])as_dfs(i,i);
         if(!B){cout<<-1<<endl;return;}
     }
     cout<<red.size()<<endl;
