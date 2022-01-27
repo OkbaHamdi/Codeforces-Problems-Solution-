@@ -38,7 +38,7 @@ const           ll INF=1e18;
 #define         sz(x)  (ll)((x).size())
 #define         rep(i,a,b) for(ll i=a;i<b;i++)
 #define         L_Headshot_7 ios_base::sync_with_stdio(false);cin.tie(0);
-#define         aff(v) for(auto e:v) cout<<e<<endl;cout<<endl;
+#define         aff(v) for(auto e:v) cout<<e<<" ";cout<<endl;
 #define         all(v) v.begin(), v.end()
 #define         rall(v) v.rbegin(), v.rend()
 #define         READ freopen("d_difficult.in.txt", "r",stdin)
@@ -53,53 +53,44 @@ ll gcd(ll a, ll b){while (b) swap(b, a %= b);return a;}inline ll lcm(ll a, ll b)
 string yup(ll a,ll b){if(a%b==0)return to_string(a/b);string ch=to_string(a/b);ll c=a%b;ll g=gcd(c,b);c/=g;b/=g;ch+="+"+to_string(c)+"/"+to_string(b);return ch;}
 
            /******************Code*********************/
-map<pi,char>mp;
 map<pi,vector<pi>>graph;
+pqg val,ind;
 map<pi,bool>vis;
-vector<pi>offf;
-void dfs(pi p,ll maxi){
+void dfs(pi p){
     if(vis[p])return;
-    if(offf.size()==maxi)return;
-    offf.pb(p);
     vis[p]=1;
-    for(auto x:graph[p]){
-        dfs(x,maxi);
-    }
+    val.push(p.S);
+    ind.push(p.F);
+    for(auto x:graph[p])dfs(x);
 }
-vl X={0,0,1,-1};
-vl Y={1,-1,0,0};
 void solve(){
-    ll n,m,k;
-    cin>>n>>m>>k;
-    ll nb=0;
-    pi okba;
+    ll n;
+    cin>>n;
+    vl v;
+    for(ll i=0;i<n;i++){
+        ll a;
+        cin>>a;
+        v.pb(a);
+    }
     for(ll i=0;i<n;i++){
         string ch;
         cin>>ch;
-        for(ll j=0;j<m;j++){
-            if(ch[j]=='.'){mp[{i,j}]='.';nb++;okba={i,j};}
-            else mp[{i,j}]='#';
+        for(ll j=0;j<n;j++){
+            if(ch[j]=='1')graph[{i,v[i]}].pb({j,v[j]});
         }
     }
-    for(auto x:mp){
-        if(x.S=='.'){
-            for(ll k=0;k<4;k++){
-                if(x.F.F+X[k]>=0&&x.F.S+Y[k]>=0&&x.F.F+X[k]<n&&x.F.S+Y[k]<m&&mp[{x.F.F+X[k],x.F.S+Y[k]}]=='.')graph[x.F].pb({x.F.F+X[k],x.F.S+Y[k]});
-            }
+    for(auto x:graph){
+        val = pqg();
+        ind=pqg();
+        if(!vis[x.F])dfs(x.F);
+        while(ind.size()){
+            ll i=ind.top();ind.pop();
+            ll a=val.top();val.pop();
+            v[i]=a;
         }
     }
-    ll ans=nb-k;
-    dfs(okba,ans);
-    ll c=0;
-    for(auto x:mp){
-        if(mp[x.F]=='.'){
-            if(vis[x.F])cout<<'.';
-            else cout<<'X';
-        }
-        else cout<<mp[x.F];
-        c++;
-        if(c==m){cout<<endl;c=0;}
-    }
+    aff(v);
+
 }
 int main()
 {
