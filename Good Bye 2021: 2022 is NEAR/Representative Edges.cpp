@@ -78,7 +78,6 @@ void solve(){
             ll a=v[j]-v[i];
             ll b=j-i;
             freq[yup(a,b)]++;
-            //cout<<yup(a,b)<<endl;
         }
         ll maxi2=0;
         for(auto x:freq){
