@@ -6,7 +6,7 @@ For now, It contains all the problems I have solved at
 ## User Details ([L_7](https://codeforces.com/profile/L_7))
 
 ```.json
-{
+
 	"handle" : "L_7",
 	"organization" : "ENSI Tunisia",
 	"rank" : "newbie",
@@ -15,7 +15,7 @@ For now, It contains all the problems I have solved at
 	"maxRank" : "newbie",
 	"maxRating" : 1190,
 	"joined" : "2021",
-}
+
 
 ```
 ## Submissions 
